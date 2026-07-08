@@ -1,0 +1,9 @@
+models/*.gguf
+models/.cache/
+__pycache__/
+*.pyc
+.env
+
+# internal planning docs, not part of the shipped repo
+CLAUDE.md
+compass_artifact_wf-581b312d-ba7d-4c57-9a96-b0d2ef8efa6f_text_markdown.md

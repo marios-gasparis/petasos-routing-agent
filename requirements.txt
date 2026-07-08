@@ -1,0 +1,2 @@
+# Populated as later phases add dependencies (openai, requests, scikit-learn,
+# sentence-transformers, joblib, rouge-score, numpy). Nothing needed yet.
