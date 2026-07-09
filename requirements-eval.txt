@@ -1,0 +1,14 @@
+# Offline-eval-only dependencies (Phase 5 harness). Deliberately kept OUT of
+# requirements.txt so they never bloat the scored container image -- eval/ is
+# excluded from the image via .dockerignore and is never in the scored path.
+#
+# metrics.py is pure-python (its ROUGE-L / F1 have no external dependency), so
+# the harness and its unit tests run with only the base requirements. These are
+# optional niceties for anyone extending the eval tooling.
+#
+# The harness reuses the base image's `openai` (already in requirements.txt)
+# for both the agent pipeline and the LLM judge.
+-r requirements.txt
+
+rouge-score>=0.1.2   # optional: reference ROUGE implementation (metrics.py ships its own)
+numpy>=1.24          # optional: for any future numeric analysis of sweep output

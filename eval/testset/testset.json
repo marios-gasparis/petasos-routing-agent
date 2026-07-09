@@ -1,0 +1,962 @@
+[
+  {
+    "task_id": "factual-000",
+    "category": "factual",
+    "prompt": "What is the capital of France?",
+    "reference": "Paris"
+  },
+  {
+    "task_id": "factual-001",
+    "category": "factual",
+    "prompt": "Who wrote the novel 'Pride and Prejudice'?",
+    "reference": "Jane Austen"
+  },
+  {
+    "task_id": "factual-002",
+    "category": "factual",
+    "prompt": "What year did World War II end?",
+    "reference": "1945"
+  },
+  {
+    "task_id": "factual-003",
+    "category": "factual",
+    "prompt": "What is the chemical symbol for gold?",
+    "reference": "Au"
+  },
+  {
+    "task_id": "factual-004",
+    "category": "factual",
+    "prompt": "What is the largest planet in our solar system?",
+    "reference": "Jupiter"
+  },
+  {
+    "task_id": "factual-005",
+    "category": "factual",
+    "prompt": "Who painted the Mona Lisa?",
+    "reference": "Leonardo da Vinci"
+  },
+  {
+    "task_id": "factual-006",
+    "category": "factual",
+    "prompt": "What is the tallest mountain on Earth?",
+    "reference": "Mount Everest"
+  },
+  {
+    "task_id": "factual-007",
+    "category": "factual",
+    "prompt": "What is the smallest prime number?",
+    "reference": "2"
+  },
+  {
+    "task_id": "factual-008",
+    "category": "factual",
+    "prompt": "In which country is the Great Pyramid of Giza located?",
+    "reference": "Egypt"
+  },
+  {
+    "task_id": "factual-009",
+    "category": "factual",
+    "prompt": "What gas do plants absorb from the atmosphere during photosynthesis?",
+    "reference": "Carbon dioxide"
+  },
+  {
+    "task_id": "factual-010",
+    "category": "factual",
+    "prompt": "Please answer the following. What is the capital of France?",
+    "reference": "Paris"
+  },
+  {
+    "task_id": "factual-011",
+    "category": "factual",
+    "prompt": "Please answer the following. Who wrote the novel 'Pride and Prejudice'?",
+    "reference": "Jane Austen"
+  },
+  {
+    "task_id": "factual-012",
+    "category": "factual",
+    "prompt": "Please answer the following. What year did World War II end?",
+    "reference": "1945"
+  },
+  {
+    "task_id": "factual-013",
+    "category": "factual",
+    "prompt": "Please answer the following. What is the chemical symbol for gold?",
+    "reference": "Au"
+  },
+  {
+    "task_id": "factual-014",
+    "category": "factual",
+    "prompt": "Please answer the following. What is the largest planet in our solar system?",
+    "reference": "Jupiter"
+  },
+  {
+    "task_id": "factual-015",
+    "category": "factual",
+    "prompt": "Please answer the following. Who painted the Mona Lisa?",
+    "reference": "Leonardo da Vinci"
+  },
+  {
+    "task_id": "factual-016",
+    "category": "factual",
+    "prompt": "Please answer the following. What is the tallest mountain on Earth?",
+    "reference": "Mount Everest"
+  },
+  {
+    "task_id": "factual-017",
+    "category": "factual",
+    "prompt": "Please answer the following. What is the smallest prime number?",
+    "reference": "2"
+  },
+  {
+    "task_id": "factual-018",
+    "category": "factual",
+    "prompt": "Please answer the following. In which country is the Great Pyramid of Giza located?",
+    "reference": "Egypt"
+  },
+  {
+    "task_id": "factual-019",
+    "category": "factual",
+    "prompt": "Please answer the following. What gas do plants absorb from the atmosphere during photosynthesis?",
+    "reference": "Carbon dioxide"
+  },
+  {
+    "task_id": "math-000",
+    "category": "math",
+    "prompt": "Calculate the sum of 12, 34 and 56.",
+    "reference": "102"
+  },
+  {
+    "task_id": "math-001",
+    "category": "math",
+    "prompt": "What is 7 times 8?",
+    "reference": "56"
+  },
+  {
+    "task_id": "math-002",
+    "category": "math",
+    "prompt": "If a train travels 60 miles per hour for 3 hours, how many miles does it travel?",
+    "reference": "180"
+  },
+  {
+    "task_id": "math-003",
+    "category": "math",
+    "prompt": "Solve for x: 2x + 3 = 11.",
+    "reference": "4"
+  },
+  {
+    "task_id": "math-004",
+    "category": "math",
+    "prompt": "What is 144 divided by 12?",
+    "reference": "12"
+  },
+  {
+    "task_id": "math-005",
+    "category": "math",
+    "prompt": "A shirt costs $20 and is discounted by 15%. What is the sale price in dollars?",
+    "reference": "17"
+  },
+  {
+    "task_id": "math-006",
+    "category": "math",
+    "prompt": "What is 25 percent of 200?",
+    "reference": "50"
+  },
+  {
+    "task_id": "math-007",
+    "category": "math",
+    "prompt": "What is the square root of 169?",
+    "reference": "13"
+  },
+  {
+    "task_id": "math-008",
+    "category": "math",
+    "prompt": "If you buy 3 items at $4.50 each, what is the total cost in dollars?",
+    "reference": "13.50"
+  },
+  {
+    "task_id": "math-009",
+    "category": "math",
+    "prompt": "What is 15 plus 27 minus 9?",
+    "reference": "33"
+  },
+  {
+    "task_id": "math-010",
+    "category": "math",
+    "prompt": "Please answer the following. Calculate the sum of 12, 34 and 56.",
+    "reference": "102"
+  },
+  {
+    "task_id": "math-011",
+    "category": "math",
+    "prompt": "Please answer the following. What is 7 times 8?",
+    "reference": "56"
+  },
+  {
+    "task_id": "math-012",
+    "category": "math",
+    "prompt": "Please answer the following. If a train travels 60 miles per hour for 3 hours, how many miles does it travel?",
+    "reference": "180"
+  },
+  {
+    "task_id": "math-013",
+    "category": "math",
+    "prompt": "Please answer the following. Solve for x: 2x + 3 = 11.",
+    "reference": "4"
+  },
+  {
+    "task_id": "math-014",
+    "category": "math",
+    "prompt": "Please answer the following. What is 144 divided by 12?",
+    "reference": "12"
+  },
+  {
+    "task_id": "math-015",
+    "category": "math",
+    "prompt": "Please answer the following. A shirt costs $20 and is discounted by 15%. What is the sale price in dollars?",
+    "reference": "17"
+  },
+  {
+    "task_id": "math-016",
+    "category": "math",
+    "prompt": "Please answer the following. What is 25 percent of 200?",
+    "reference": "50"
+  },
+  {
+    "task_id": "math-017",
+    "category": "math",
+    "prompt": "Please answer the following. What is the square root of 169?",
+    "reference": "13"
+  },
+  {
+    "task_id": "math-018",
+    "category": "math",
+    "prompt": "Please answer the following. If you buy 3 items at $4.50 each, what is the total cost in dollars?",
+    "reference": "13.50"
+  },
+  {
+    "task_id": "math-019",
+    "category": "math",
+    "prompt": "Please answer the following. What is 15 plus 27 minus 9?",
+    "reference": "33"
+  },
+  {
+    "task_id": "sentiment-000",
+    "category": "sentiment",
+    "prompt": "Classify the sentiment: 'I loved this movie, it was fantastic!'",
+    "reference": "positive"
+  },
+  {
+    "task_id": "sentiment-001",
+    "category": "sentiment",
+    "prompt": "What is the sentiment: 'The food was cold and the service was terrible.'",
+    "reference": "negative"
+  },
+  {
+    "task_id": "sentiment-002",
+    "category": "sentiment",
+    "prompt": "Sentiment of: 'The package arrived on Tuesday afternoon.'",
+    "reference": "neutral"
+  },
+  {
+    "task_id": "sentiment-003",
+    "category": "sentiment",
+    "prompt": "Classify: 'Best purchase I have ever made, absolutely delighted.'",
+    "reference": "positive"
+  },
+  {
+    "task_id": "sentiment-004",
+    "category": "sentiment",
+    "prompt": "Sentiment: 'It broke after one use, very disappointed.'",
+    "reference": "negative"
+  },
+  {
+    "task_id": "sentiment-005",
+    "category": "sentiment",
+    "prompt": "Classify the sentiment: 'The meeting is scheduled for 3pm.'",
+    "reference": "neutral"
+  },
+  {
+    "task_id": "sentiment-006",
+    "category": "sentiment",
+    "prompt": "Sentiment of this review: 'Wonderful experience, highly recommend.'",
+    "reference": "positive"
+  },
+  {
+    "task_id": "sentiment-007",
+    "category": "sentiment",
+    "prompt": "What is the sentiment: 'Worst customer service I have ever dealt with.'",
+    "reference": "negative"
+  },
+  {
+    "task_id": "sentiment-008",
+    "category": "sentiment",
+    "prompt": "Classify: 'The report contains four sections and an appendix.'",
+    "reference": "neutral"
+  },
+  {
+    "task_id": "sentiment-009",
+    "category": "sentiment",
+    "prompt": "Sentiment: 'Absolutely thrilled with how well this works!'",
+    "reference": "positive"
+  },
+  {
+    "task_id": "sentiment-010",
+    "category": "sentiment",
+    "prompt": "Classify this. Classify the sentiment: 'I loved this movie, it was fantastic!'",
+    "reference": "positive"
+  },
+  {
+    "task_id": "sentiment-011",
+    "category": "sentiment",
+    "prompt": "Classify this. What is the sentiment: 'The food was cold and the service was terrible.'",
+    "reference": "negative"
+  },
+  {
+    "task_id": "sentiment-012",
+    "category": "sentiment",
+    "prompt": "Classify this. Sentiment of: 'The package arrived on Tuesday afternoon.'",
+    "reference": "neutral"
+  },
+  {
+    "task_id": "sentiment-013",
+    "category": "sentiment",
+    "prompt": "Classify this. Classify: 'Best purchase I have ever made, absolutely delighted.'",
+    "reference": "positive"
+  },
+  {
+    "task_id": "sentiment-014",
+    "category": "sentiment",
+    "prompt": "Classify this. Sentiment: 'It broke after one use, very disappointed.'",
+    "reference": "negative"
+  },
+  {
+    "task_id": "sentiment-015",
+    "category": "sentiment",
+    "prompt": "Classify this. Classify the sentiment: 'The meeting is scheduled for 3pm.'",
+    "reference": "neutral"
+  },
+  {
+    "task_id": "sentiment-016",
+    "category": "sentiment",
+    "prompt": "Classify this. Sentiment of this review: 'Wonderful experience, highly recommend.'",
+    "reference": "positive"
+  },
+  {
+    "task_id": "sentiment-017",
+    "category": "sentiment",
+    "prompt": "Classify this. What is the sentiment: 'Worst customer service I have ever dealt with.'",
+    "reference": "negative"
+  },
+  {
+    "task_id": "sentiment-018",
+    "category": "sentiment",
+    "prompt": "Classify this. Classify: 'The report contains four sections and an appendix.'",
+    "reference": "neutral"
+  },
+  {
+    "task_id": "sentiment-019",
+    "category": "sentiment",
+    "prompt": "Classify this. Sentiment: 'Absolutely thrilled with how well this works!'",
+    "reference": "positive"
+  },
+  {
+    "task_id": "summarization-000",
+    "category": "summarization",
+    "prompt": "Summarize: The company reported record quarterly profits driven by strong demand for its cloud services, and announced plans to hire an additional two thousand engineers over the next year.",
+    "reference": "The company had record quarterly profits from strong cloud demand and plans to hire two thousand more engineers next year."
+  },
+  {
+    "task_id": "summarization-001",
+    "category": "summarization",
+    "prompt": "Summarize: Scientists have discovered a new species of frog in the Amazon rainforest that can change color to blend with its surroundings, a trait they believe helps it evade predators.",
+    "reference": "Scientists found a new color-changing frog in the Amazon that uses camouflage to evade predators."
+  },
+  {
+    "task_id": "summarization-002",
+    "category": "summarization",
+    "prompt": "Summarize: The city council voted to expand the public transit network, adding three new bus routes and extending service hours to midnight on weekends to reduce traffic congestion.",
+    "reference": "The city council expanded public transit with three new bus routes and later weekend hours to cut congestion."
+  },
+  {
+    "task_id": "summarization-003",
+    "category": "summarization",
+    "prompt": "Summarize: Researchers found that regular moderate exercise significantly lowers the risk of heart disease, improves mood, and can extend life expectancy by several years according to a long-term study.",
+    "reference": "A long-term study found regular moderate exercise lowers heart disease risk, improves mood, and lengthens life expectancy."
+  },
+  {
+    "task_id": "summarization-004",
+    "category": "summarization",
+    "prompt": "Summarize: The new smartphone features a larger battery, an improved camera system with three lenses, and a faster processor, though its price has increased compared to last year's model.",
+    "reference": "The new smartphone has a bigger battery, a three-lens camera, and a faster processor, but costs more than last year's model."
+  },
+  {
+    "task_id": "summarization-005",
+    "category": "summarization",
+    "prompt": "Summarize: Heavy rainfall over the weekend caused flooding in several low-lying neighborhoods, prompting evacuations and closing a number of major roads across the region.",
+    "reference": "Weekend rainfall flooded low-lying neighborhoods, forcing evacuations and closing major roads."
+  },
+  {
+    "task_id": "summarization-006",
+    "category": "summarization",
+    "prompt": "Summarize: The museum unveiled a new exhibit showcasing ancient Egyptian artifacts, including jewelry, pottery, and a well-preserved sarcophagus on loan from a foreign collection.",
+    "reference": "The museum opened an exhibit of ancient Egyptian artifacts, including jewelry, pottery, and a loaned sarcophagus."
+  },
+  {
+    "task_id": "summarization-007",
+    "category": "summarization",
+    "prompt": "Summarize: A recent survey found that most remote workers report higher productivity and better work-life balance, but some miss the social interaction of a traditional office setting.",
+    "reference": "A survey found remote workers feel more productive with better work-life balance, though some miss office social interaction."
+  },
+  {
+    "task_id": "summarization-008",
+    "category": "summarization",
+    "prompt": "Summarize: The government announced a new policy offering tax incentives to households that install solar panels, aiming to accelerate the country's transition to renewable energy.",
+    "reference": "The government introduced tax incentives for household solar panels to speed the shift to renewable energy."
+  },
+  {
+    "task_id": "summarization-009",
+    "category": "summarization",
+    "prompt": "Summarize: The soccer team secured the championship after a dramatic penalty shootout, capping an unbeaten season that manager and fans alike called historic.",
+    "reference": "The soccer team won the championship in a penalty shootout, finishing a historic unbeaten season."
+  },
+  {
+    "task_id": "summarization-010",
+    "category": "summarization",
+    "prompt": "Please answer the following. Summarize: The company reported record quarterly profits driven by strong demand for its cloud services, and announced plans to hire an additional two thousand engineers over the next year.",
+    "reference": "The company had record quarterly profits from strong cloud demand and plans to hire two thousand more engineers next year."
+  },
+  {
+    "task_id": "summarization-011",
+    "category": "summarization",
+    "prompt": "Please answer the following. Summarize: Scientists have discovered a new species of frog in the Amazon rainforest that can change color to blend with its surroundings, a trait they believe helps it evade predators.",
+    "reference": "Scientists found a new color-changing frog in the Amazon that uses camouflage to evade predators."
+  },
+  {
+    "task_id": "summarization-012",
+    "category": "summarization",
+    "prompt": "Please answer the following. Summarize: The city council voted to expand the public transit network, adding three new bus routes and extending service hours to midnight on weekends to reduce traffic congestion.",
+    "reference": "The city council expanded public transit with three new bus routes and later weekend hours to cut congestion."
+  },
+  {
+    "task_id": "summarization-013",
+    "category": "summarization",
+    "prompt": "Please answer the following. Summarize: Researchers found that regular moderate exercise significantly lowers the risk of heart disease, improves mood, and can extend life expectancy by several years according to a long-term study.",
+    "reference": "A long-term study found regular moderate exercise lowers heart disease risk, improves mood, and lengthens life expectancy."
+  },
+  {
+    "task_id": "summarization-014",
+    "category": "summarization",
+    "prompt": "Please answer the following. Summarize: The new smartphone features a larger battery, an improved camera system with three lenses, and a faster processor, though its price has increased compared to last year's model.",
+    "reference": "The new smartphone has a bigger battery, a three-lens camera, and a faster processor, but costs more than last year's model."
+  },
+  {
+    "task_id": "summarization-015",
+    "category": "summarization",
+    "prompt": "Please answer the following. Summarize: Heavy rainfall over the weekend caused flooding in several low-lying neighborhoods, prompting evacuations and closing a number of major roads across the region.",
+    "reference": "Weekend rainfall flooded low-lying neighborhoods, forcing evacuations and closing major roads."
+  },
+  {
+    "task_id": "summarization-016",
+    "category": "summarization",
+    "prompt": "Please answer the following. Summarize: The museum unveiled a new exhibit showcasing ancient Egyptian artifacts, including jewelry, pottery, and a well-preserved sarcophagus on loan from a foreign collection.",
+    "reference": "The museum opened an exhibit of ancient Egyptian artifacts, including jewelry, pottery, and a loaned sarcophagus."
+  },
+  {
+    "task_id": "summarization-017",
+    "category": "summarization",
+    "prompt": "Please answer the following. Summarize: A recent survey found that most remote workers report higher productivity and better work-life balance, but some miss the social interaction of a traditional office setting.",
+    "reference": "A survey found remote workers feel more productive with better work-life balance, though some miss office social interaction."
+  },
+  {
+    "task_id": "summarization-018",
+    "category": "summarization",
+    "prompt": "Please answer the following. Summarize: The government announced a new policy offering tax incentives to households that install solar panels, aiming to accelerate the country's transition to renewable energy.",
+    "reference": "The government introduced tax incentives for household solar panels to speed the shift to renewable energy."
+  },
+  {
+    "task_id": "summarization-019",
+    "category": "summarization",
+    "prompt": "Please answer the following. Summarize: The soccer team secured the championship after a dramatic penalty shootout, capping an unbeaten season that manager and fans alike called historic.",
+    "reference": "The soccer team won the championship in a penalty shootout, finishing a historic unbeaten season."
+  },
+  {
+    "task_id": "ner-000",
+    "category": "ner",
+    "prompt": "Extract the named entities: Barack Obama was born in Hawaii.",
+    "reference": "[\"Barack Obama\", \"Hawaii\"]"
+  },
+  {
+    "task_id": "ner-001",
+    "category": "ner",
+    "prompt": "Identify all named entities: Apple Inc. is headquartered in Cupertino, California.",
+    "reference": "[\"Apple Inc.\", \"Cupertino\", \"California\"]"
+  },
+  {
+    "task_id": "ner-002",
+    "category": "ner",
+    "prompt": "Extract named entities: The Eiffel Tower is located in Paris, France.",
+    "reference": "[\"Eiffel Tower\", \"Paris\", \"France\"]"
+  },
+  {
+    "task_id": "ner-003",
+    "category": "ner",
+    "prompt": "List the named entities: Elon Musk founded SpaceX in 2002.",
+    "reference": "[\"Elon Musk\", \"SpaceX\"]"
+  },
+  {
+    "task_id": "ner-004",
+    "category": "ner",
+    "prompt": "Extract entities: Microsoft was founded by Bill Gates and Paul Allen in Albuquerque.",
+    "reference": "[\"Microsoft\", \"Bill Gates\", \"Paul Allen\", \"Albuquerque\"]"
+  },
+  {
+    "task_id": "ner-005",
+    "category": "ner",
+    "prompt": "Named entity extraction: Amazon opened a new office in Seattle led by Andy Jassy.",
+    "reference": "[\"Amazon\", \"Seattle\", \"Andy Jassy\"]"
+  },
+  {
+    "task_id": "ner-006",
+    "category": "ner",
+    "prompt": "Extract the named entities: Serena Williams won the tournament in London.",
+    "reference": "[\"Serena Williams\", \"London\"]"
+  },
+  {
+    "task_id": "ner-007",
+    "category": "ner",
+    "prompt": "Identify named entities: Toyota unveiled its new model in Tokyo, Japan.",
+    "reference": "[\"Toyota\", \"Tokyo\", \"Japan\"]"
+  },
+  {
+    "task_id": "ner-008",
+    "category": "ner",
+    "prompt": "Extract entities: Nelson Mandela became president of South Africa.",
+    "reference": "[\"Nelson Mandela\", \"South Africa\"]"
+  },
+  {
+    "task_id": "ner-009",
+    "category": "ner",
+    "prompt": "List named entities: Google acquired YouTube while based in Mountain View.",
+    "reference": "[\"Google\", \"YouTube\", \"Mountain View\"]"
+  },
+  {
+    "task_id": "ner-010",
+    "category": "ner",
+    "prompt": "Extract the named entities: Barack Obama was born in Hawaii. Return a JSON list.",
+    "reference": "[\"Barack Obama\", \"Hawaii\"]"
+  },
+  {
+    "task_id": "ner-011",
+    "category": "ner",
+    "prompt": "Identify all named entities: Apple Inc. is headquartered in Cupertino, California. Return a JSON list.",
+    "reference": "[\"Apple Inc.\", \"Cupertino\", \"California\"]"
+  },
+  {
+    "task_id": "ner-012",
+    "category": "ner",
+    "prompt": "Extract named entities: The Eiffel Tower is located in Paris, France. Return a JSON list.",
+    "reference": "[\"Eiffel Tower\", \"Paris\", \"France\"]"
+  },
+  {
+    "task_id": "ner-013",
+    "category": "ner",
+    "prompt": "List the named entities: Elon Musk founded SpaceX in 2002. Return a JSON list.",
+    "reference": "[\"Elon Musk\", \"SpaceX\"]"
+  },
+  {
+    "task_id": "ner-014",
+    "category": "ner",
+    "prompt": "Extract entities: Microsoft was founded by Bill Gates and Paul Allen in Albuquerque. Return a JSON list.",
+    "reference": "[\"Microsoft\", \"Bill Gates\", \"Paul Allen\", \"Albuquerque\"]"
+  },
+  {
+    "task_id": "ner-015",
+    "category": "ner",
+    "prompt": "Named entity extraction: Amazon opened a new office in Seattle led by Andy Jassy. Return a JSON list.",
+    "reference": "[\"Amazon\", \"Seattle\", \"Andy Jassy\"]"
+  },
+  {
+    "task_id": "ner-016",
+    "category": "ner",
+    "prompt": "Extract the named entities: Serena Williams won the tournament in London. Return a JSON list.",
+    "reference": "[\"Serena Williams\", \"London\"]"
+  },
+  {
+    "task_id": "ner-017",
+    "category": "ner",
+    "prompt": "Identify named entities: Toyota unveiled its new model in Tokyo, Japan. Return a JSON list.",
+    "reference": "[\"Toyota\", \"Tokyo\", \"Japan\"]"
+  },
+  {
+    "task_id": "ner-018",
+    "category": "ner",
+    "prompt": "Extract entities: Nelson Mandela became president of South Africa. Return a JSON list.",
+    "reference": "[\"Nelson Mandela\", \"South Africa\"]"
+  },
+  {
+    "task_id": "ner-019",
+    "category": "ner",
+    "prompt": "List named entities: Google acquired YouTube while based in Mountain View. Return a JSON list.",
+    "reference": "[\"Google\", \"YouTube\", \"Mountain View\"]"
+  },
+  {
+    "task_id": "code-debug-000",
+    "category": "code-debug",
+    "prompt": "Fix the bug in this code:\n```python\ndef add(a, b):\n    return a - b\n```",
+    "reference": "def add(a, b):\n    return a + b"
+  },
+  {
+    "task_id": "code-debug-001",
+    "category": "code-debug",
+    "prompt": "There is an error here:\n```python\ndef square(x):\n    return x * x * x\n```\nIt should return the square.",
+    "reference": "def square(x):\n    return x * x"
+  },
+  {
+    "task_id": "code-debug-002",
+    "category": "code-debug",
+    "prompt": "Fix this function so it does not crash on b=0:\n```python\ndef div(a, b):\n    return a / b\n```",
+    "reference": "def div(a, b):\n    if b == 0:\n        return None\n    return a / b"
+  },
+  {
+    "task_id": "code-debug-003",
+    "category": "code-debug",
+    "prompt": "Debug:\n```python\ndef greet(name)\n    return 'Hi ' + name\n```",
+    "reference": "def greet(name):\n    return 'Hi ' + name"
+  },
+  {
+    "task_id": "code-debug-004",
+    "category": "code-debug",
+    "prompt": "What's wrong with this?\n```python\nfor i in range(5)\n    print(i)\n```",
+    "reference": "for i in range(5):\n    print(i)"
+  },
+  {
+    "task_id": "code-debug-005",
+    "category": "code-debug",
+    "prompt": "Fix the off-by-one bug:\n```python\ndef last(lst):\n    return lst[len(lst)]\n```",
+    "reference": "def last(lst):\n    return lst[len(lst) - 1]"
+  },
+  {
+    "task_id": "code-debug-006",
+    "category": "code-debug",
+    "prompt": "This raises a NameError:\n```python\ndef total(items):\n    for i in items:\n        s += i\n    return s\n```",
+    "reference": "def total(items):\n    s = 0\n    for i in items:\n        s += i\n    return s"
+  },
+  {
+    "task_id": "code-debug-007",
+    "category": "code-debug",
+    "prompt": "Fix the bug:\n```python\ndef is_even(n):\n    return n % 2 == 1\n```\nIt should detect even numbers.",
+    "reference": "def is_even(n):\n    return n % 2 == 0"
+  },
+  {
+    "task_id": "code-debug-008",
+    "category": "code-debug",
+    "prompt": "Correct this code:\n```python\ndef concat(a, b):\n    return a + int(b)\n```\nBoth arguments are strings.",
+    "reference": "def concat(a, b):\n    return a + b"
+  },
+  {
+    "task_id": "code-debug-009",
+    "category": "code-debug",
+    "prompt": "Fix:\n```python\ndef average(nums):\n    return sum(nums)\n```\nIt should return the mean.",
+    "reference": "def average(nums):\n    return sum(nums) / len(nums)"
+  },
+  {
+    "task_id": "code-debug-010",
+    "category": "code-debug",
+    "prompt": "Please answer the following. Fix the bug in this code:\n```python\ndef add(a, b):\n    return a - b\n```",
+    "reference": "def add(a, b):\n    return a + b"
+  },
+  {
+    "task_id": "code-debug-011",
+    "category": "code-debug",
+    "prompt": "Please answer the following. There is an error here:\n```python\ndef square(x):\n    return x * x * x\n```\nIt should return the square.",
+    "reference": "def square(x):\n    return x * x"
+  },
+  {
+    "task_id": "code-debug-012",
+    "category": "code-debug",
+    "prompt": "Please answer the following. Fix this function so it does not crash on b=0:\n```python\ndef div(a, b):\n    return a / b\n```",
+    "reference": "def div(a, b):\n    if b == 0:\n        return None\n    return a / b"
+  },
+  {
+    "task_id": "code-debug-013",
+    "category": "code-debug",
+    "prompt": "Please answer the following. Debug:\n```python\ndef greet(name)\n    return 'Hi ' + name\n```",
+    "reference": "def greet(name):\n    return 'Hi ' + name"
+  },
+  {
+    "task_id": "code-debug-014",
+    "category": "code-debug",
+    "prompt": "Please answer the following. What's wrong with this?\n```python\nfor i in range(5)\n    print(i)\n```",
+    "reference": "for i in range(5):\n    print(i)"
+  },
+  {
+    "task_id": "code-debug-015",
+    "category": "code-debug",
+    "prompt": "Please answer the following. Fix the off-by-one bug:\n```python\ndef last(lst):\n    return lst[len(lst)]\n```",
+    "reference": "def last(lst):\n    return lst[len(lst) - 1]"
+  },
+  {
+    "task_id": "code-debug-016",
+    "category": "code-debug",
+    "prompt": "Please answer the following. This raises a NameError:\n```python\ndef total(items):\n    for i in items:\n        s += i\n    return s\n```",
+    "reference": "def total(items):\n    s = 0\n    for i in items:\n        s += i\n    return s"
+  },
+  {
+    "task_id": "code-debug-017",
+    "category": "code-debug",
+    "prompt": "Please answer the following. Fix the bug:\n```python\ndef is_even(n):\n    return n % 2 == 1\n```\nIt should detect even numbers.",
+    "reference": "def is_even(n):\n    return n % 2 == 0"
+  },
+  {
+    "task_id": "code-debug-018",
+    "category": "code-debug",
+    "prompt": "Please answer the following. Correct this code:\n```python\ndef concat(a, b):\n    return a + int(b)\n```\nBoth arguments are strings.",
+    "reference": "def concat(a, b):\n    return a + b"
+  },
+  {
+    "task_id": "code-debug-019",
+    "category": "code-debug",
+    "prompt": "Please answer the following. Fix:\n```python\ndef average(nums):\n    return sum(nums)\n```\nIt should return the mean.",
+    "reference": "def average(nums):\n    return sum(nums) / len(nums)"
+  },
+  {
+    "task_id": "logic-000",
+    "category": "logic",
+    "prompt": "If all cats are mammals, and all mammals are animals, are all cats animals? Answer yes or no.",
+    "reference": "Yes"
+  },
+  {
+    "task_id": "logic-001",
+    "category": "logic",
+    "prompt": "If it rains, the ground gets wet. It is raining. Is the ground wet? Answer yes or no.",
+    "reference": "Yes"
+  },
+  {
+    "task_id": "logic-002",
+    "category": "logic",
+    "prompt": "Either the butler or the gardener did it. The butler has a confirmed alibi. Who did it?",
+    "reference": "The gardener"
+  },
+  {
+    "task_id": "logic-003",
+    "category": "logic",
+    "prompt": "All dogs are loyal. All loyal animals are trustworthy. Are all dogs trustworthy? Answer yes or no.",
+    "reference": "Yes"
+  },
+  {
+    "task_id": "logic-004",
+    "category": "logic",
+    "prompt": "Tom is older than Sara. Sara is older than Mike. Who is the oldest?",
+    "reference": "Tom"
+  },
+  {
+    "task_id": "logic-005",
+    "category": "logic",
+    "prompt": "A is north of B. B is north of C. Which is furthest south?",
+    "reference": "C"
+  },
+  {
+    "task_id": "logic-006",
+    "category": "logic",
+    "prompt": "If no fish can fly, and a salmon is a fish, can a salmon fly? Answer yes or no.",
+    "reference": "No"
+  },
+  {
+    "task_id": "logic-007",
+    "category": "logic",
+    "prompt": "There are 3 red balls and 1 blue ball in a bag. You remove the blue ball. How many balls remain?",
+    "reference": "3"
+  },
+  {
+    "task_id": "logic-008",
+    "category": "logic",
+    "prompt": "Every book on the shelf is blue. The dictionary is on the shelf. What color is the dictionary?",
+    "reference": "Blue"
+  },
+  {
+    "task_id": "logic-009",
+    "category": "logic",
+    "prompt": "If today is Monday, what day will it be in two days?",
+    "reference": "Wednesday"
+  },
+  {
+    "task_id": "logic-010",
+    "category": "logic",
+    "prompt": "Please answer the following. If all cats are mammals, and all mammals are animals, are all cats animals? Answer yes or no.",
+    "reference": "Yes"
+  },
+  {
+    "task_id": "logic-011",
+    "category": "logic",
+    "prompt": "Please answer the following. If it rains, the ground gets wet. It is raining. Is the ground wet? Answer yes or no.",
+    "reference": "Yes"
+  },
+  {
+    "task_id": "logic-012",
+    "category": "logic",
+    "prompt": "Please answer the following. Either the butler or the gardener did it. The butler has a confirmed alibi. Who did it?",
+    "reference": "The gardener"
+  },
+  {
+    "task_id": "logic-013",
+    "category": "logic",
+    "prompt": "Please answer the following. All dogs are loyal. All loyal animals are trustworthy. Are all dogs trustworthy? Answer yes or no.",
+    "reference": "Yes"
+  },
+  {
+    "task_id": "logic-014",
+    "category": "logic",
+    "prompt": "Please answer the following. Tom is older than Sara. Sara is older than Mike. Who is the oldest?",
+    "reference": "Tom"
+  },
+  {
+    "task_id": "logic-015",
+    "category": "logic",
+    "prompt": "Please answer the following. A is north of B. B is north of C. Which is furthest south?",
+    "reference": "C"
+  },
+  {
+    "task_id": "logic-016",
+    "category": "logic",
+    "prompt": "Please answer the following. If no fish can fly, and a salmon is a fish, can a salmon fly? Answer yes or no.",
+    "reference": "No"
+  },
+  {
+    "task_id": "logic-017",
+    "category": "logic",
+    "prompt": "Please answer the following. There are 3 red balls and 1 blue ball in a bag. You remove the blue ball. How many balls remain?",
+    "reference": "3"
+  },
+  {
+    "task_id": "logic-018",
+    "category": "logic",
+    "prompt": "Please answer the following. Every book on the shelf is blue. The dictionary is on the shelf. What color is the dictionary?",
+    "reference": "Blue"
+  },
+  {
+    "task_id": "logic-019",
+    "category": "logic",
+    "prompt": "Please answer the following. If today is Monday, what day will it be in two days?",
+    "reference": "Wednesday"
+  },
+  {
+    "task_id": "code-gen-000",
+    "category": "code-gen",
+    "prompt": "Write a Python function that reverses a string.",
+    "reference": "def reverse(s):\n    return s[::-1]"
+  },
+  {
+    "task_id": "code-gen-001",
+    "category": "code-gen",
+    "prompt": "Write a Python function that checks if a number is even.",
+    "reference": "def is_even(n):\n    return n % 2 == 0"
+  },
+  {
+    "task_id": "code-gen-002",
+    "category": "code-gen",
+    "prompt": "Write a Python function that returns the maximum of a list.",
+    "reference": "def maximum(lst):\n    return max(lst)"
+  },
+  {
+    "task_id": "code-gen-003",
+    "category": "code-gen",
+    "prompt": "Write a Python function that computes the factorial of n recursively.",
+    "reference": "def factorial(n):\n    return 1 if n <= 1 else n * factorial(n - 1)"
+  },
+  {
+    "task_id": "code-gen-004",
+    "category": "code-gen",
+    "prompt": "Write a Python function that checks whether a number is prime.",
+    "reference": "def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n ** 0.5) + 1):\n        if n % i == 0:\n            return False\n    return True"
+  },
+  {
+    "task_id": "code-gen-005",
+    "category": "code-gen",
+    "prompt": "Write a Python function that merges two sorted lists into one sorted list.",
+    "reference": "def merge(a, b):\n    return sorted(a + b)"
+  },
+  {
+    "task_id": "code-gen-006",
+    "category": "code-gen",
+    "prompt": "Write a Python function that counts the vowels in a string.",
+    "reference": "def count_vowels(s):\n    return sum(1 for c in s.lower() if c in 'aeiou')"
+  },
+  {
+    "task_id": "code-gen-007",
+    "category": "code-gen",
+    "prompt": "Write a Python function that returns the nth Fibonacci number.",
+    "reference": "def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a"
+  },
+  {
+    "task_id": "code-gen-008",
+    "category": "code-gen",
+    "prompt": "Write a Python function that returns True if a string is a palindrome.",
+    "reference": "def is_palindrome(s):\n    return s == s[::-1]"
+  },
+  {
+    "task_id": "code-gen-009",
+    "category": "code-gen",
+    "prompt": "Write a Python function that sums the integers in a list.",
+    "reference": "def sum_list(lst):\n    return sum(lst)"
+  },
+  {
+    "task_id": "code-gen-010",
+    "category": "code-gen",
+    "prompt": "Please answer the following. Write a Python function that reverses a string.",
+    "reference": "def reverse(s):\n    return s[::-1]"
+  },
+  {
+    "task_id": "code-gen-011",
+    "category": "code-gen",
+    "prompt": "Please answer the following. Write a Python function that checks if a number is even.",
+    "reference": "def is_even(n):\n    return n % 2 == 0"
+  },
+  {
+    "task_id": "code-gen-012",
+    "category": "code-gen",
+    "prompt": "Please answer the following. Write a Python function that returns the maximum of a list.",
+    "reference": "def maximum(lst):\n    return max(lst)"
+  },
+  {
+    "task_id": "code-gen-013",
+    "category": "code-gen",
+    "prompt": "Please answer the following. Write a Python function that computes the factorial of n recursively.",
+    "reference": "def factorial(n):\n    return 1 if n <= 1 else n * factorial(n - 1)"
+  },
+  {
+    "task_id": "code-gen-014",
+    "category": "code-gen",
+    "prompt": "Please answer the following. Write a Python function that checks whether a number is prime.",
+    "reference": "def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n ** 0.5) + 1):\n        if n % i == 0:\n            return False\n    return True"
+  },
+  {
+    "task_id": "code-gen-015",
+    "category": "code-gen",
+    "prompt": "Please answer the following. Write a Python function that merges two sorted lists into one sorted list.",
+    "reference": "def merge(a, b):\n    return sorted(a + b)"
+  },
+  {
+    "task_id": "code-gen-016",
+    "category": "code-gen",
+    "prompt": "Please answer the following. Write a Python function that counts the vowels in a string.",
+    "reference": "def count_vowels(s):\n    return sum(1 for c in s.lower() if c in 'aeiou')"
+  },
+  {
+    "task_id": "code-gen-017",
+    "category": "code-gen",
+    "prompt": "Please answer the following. Write a Python function that returns the nth Fibonacci number.",
+    "reference": "def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a"
+  },
+  {
+    "task_id": "code-gen-018",
+    "category": "code-gen",
+    "prompt": "Please answer the following. Write a Python function that returns True if a string is a palindrome.",
+    "reference": "def is_palindrome(s):\n    return s == s[::-1]"
+  },
+  {
+    "task_id": "code-gen-019",
+    "category": "code-gen",
+    "prompt": "Please answer the following. Write a Python function that sums the integers in a list.",
+    "reference": "def sum_list(lst):\n    return sum(lst)"
+  }
+]

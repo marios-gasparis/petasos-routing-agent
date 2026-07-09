@@ -1,0 +1,13 @@
+# Batch job, not a service: the container reads /input/tasks.json, writes
+# /output/results.json, and exits 0. Run with:
+#   docker compose run --rm --build routing-agent
+# (or `docker compose up --build`, which will show it exit when done)
+services:
+  routing-agent:
+    build: .
+    image: routing-agent
+    platform: linux/amd64
+    env_file: .env
+    volumes:
+      - ./input:/input
+      - ./output:/output

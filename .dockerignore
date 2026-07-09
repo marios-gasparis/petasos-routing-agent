@@ -1,0 +1,31 @@
+# Build context only needs: Dockerfile, requirements.txt, src/, entrypoint.sh.
+# The GGUF is downloaded inside the build (not COPYed), so the local ~2 GB
+# models/ dir must stay out of the context or every build ships it to the
+# daemon for nothing.
+models/
+
+# Secrets — must never reach the image or the build context.
+.env
+
+# VCS / tooling
+.git/
+.gitignore
+.claude/
+.dockerignore
+
+# Runtime mounts and local artifacts
+input/
+output/
+**/__pycache__/
+*.pyc
+
+# Docs, tests, planning files — not part of the scored container.
+# eval/ stays out once it exists (CLAUDE.md: judge/harness must never enter
+# the scored container path). classifier/ is deliberately NOT excluded —
+# Phase 6 bakes router_clf.joblib into the image.
+docs/
+tests/
+eval/
+CLAUDE.md
+README.md
+compose.yaml
