@@ -3,12 +3,10 @@ import sys
 
 from io_contract import load_tasks, write_results
 from local_model import local_chat
+from router import route_task
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
-
-SYSTEM_PROMPT = "Answer the user's request directly and concisely. No preamble."
-MAX_TOKENS = 300
 
 
 def main():
@@ -17,7 +15,16 @@ def main():
 
     results = []
     for t in tasks:
-        answer, _usage = local_chat(SYSTEM_PROMPT, t["prompt"], max_tokens=MAX_TOKENS)
+        category, category_name, difficulty = route_task(t["prompt"])
+        logger.info(
+            "task_id=%s category=%s difficulty=%s", t["task_id"], category_name, difficulty
+        )
+        answer, _usage = local_chat(
+            category.system_prompt,
+            t["prompt"],
+            max_tokens=category.max_tokens,
+            stop=category.stop,
+        )
         results.append({"task_id": t["task_id"], "answer": answer})
 
     write_results(results)
