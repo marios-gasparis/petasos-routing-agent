@@ -1,2 +1,4 @@
-# Populated as later phases add dependencies (openai, requests, scikit-learn,
-# sentence-transformers, joblib, rouge-score, numpy). Nothing needed yet.
+openai>=1.30
+
+# Populated as later phases add dependencies (requests, scikit-learn,
+# sentence-transformers, joblib, rouge-score, numpy).
