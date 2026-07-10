@@ -5,7 +5,6 @@ __pycache__/
 .env
 /input/
 /output/
-/tests/
 
 # internal planning docs, not part of the shipped repo
 CLAUDE.md

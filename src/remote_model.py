@@ -13,6 +13,19 @@ logger = logging.getLogger(__name__)
 _CODE_CATEGORIES = {"code-gen", "code-debug"}
 _SIZE_RE = re.compile(r"(\d+(?:\.\d+)?)\s*b\b", re.I)
 
+# Remote output budget. The per-category caps (factual 40, ner 60, summarization
+# 120 ...) are tuned for the terse local 3B; a remote *reasoning* model (e.g.
+# gpt-oss-120b) emits chain-of-thought before its answer and truncates mid-CoT
+# under those caps, shipping a cut-off non-answer (observed in the 2026-07-10
+# container smoke run: 6/10 escalations truncated). Escalations are few, so we
+# can afford generous room: give the remote call max(4x cap, 512) tokens.
+REMOTE_MAX_TOKENS_MULTIPLIER = 4
+REMOTE_MAX_TOKENS_FLOOR = 512
+
+
+def _remote_max_tokens(local_cap):
+    return max(local_cap * REMOTE_MAX_TOKENS_MULTIPLIER, REMOTE_MAX_TOKENS_FLOOR)
+
 _client = None
 total_tokens_used = 0
 
@@ -77,24 +90,43 @@ def remote_chat(model, system, user, max_tokens, stop=None):
         {"role": "system", "content": system},
         {"role": "user", "content": user},
     ]
+    remote_max_tokens = _remote_max_tokens(max_tokens)
     try:
         response = _get_client().chat.completions.create(
             model=model,
             messages=messages,
-            max_tokens=max_tokens,
+            max_tokens=remote_max_tokens,
             temperature=0.0,
             stop=stop,
         )
-        text = response.choices[0].message.content or ""
+        choice = response.choices[0]
+        text = choice.message.content or ""
+        finish_reason = getattr(choice, "finish_reason", None)
         usage = response.usage
     except Exception as e:
         logger.error("remote_chat failed (model=%s): %s", model, e)
         return "N/A", None
 
+    # Tokens are counted regardless of the outcome -- they were spent the moment
+    # the remote responded, even if we end up discarding a truncated answer.
     tokens = getattr(usage, "total_tokens", None) if usage is not None else None
     if tokens:
         total_tokens_used += tokens
-    logger.info("remote_chat model=%s tokens=%s", model, tokens)
+    logger.info(
+        "remote_chat model=%s tokens=%s finish_reason=%s", model, tokens, finish_reason
+    )
+
+    # Truncation guard: a "length"-terminated answer was cut off before it
+    # finished (the reasoning model ran out of room mid-thought). A complete
+    # local answer beats a truncated remote one, so signal failure with the
+    # same "N/A" sentinel remote_chat already returns on error -- callers
+    # (main.py, harness) treat that as "remote unusable, keep local".
+    if finish_reason == "length":
+        logger.warning(
+            "task remote answer truncated (model=%s, cap=%s); discarding, keep local",
+            model, remote_max_tokens,
+        )
+        return "N/A", usage
 
     return text.strip(), usage
 
