@@ -26,6 +26,11 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir --break-system-packages -r requirements.txt
 
 COPY src/ ./src/
+# Phase 6: bake in the Stage-2 classifier artifact (src/classifier_router.py
+# loads ../classifier/router_clf.joblib at runtime). Only the joblib is needed
+# in the scored path; train_classifier.py is training-only but harmless (never
+# imported at runtime).
+COPY classifier/ ./classifier/
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
 

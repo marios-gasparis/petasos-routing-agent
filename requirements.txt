@@ -1,4 +1,12 @@
 openai>=1.30
 
-# Populated as later phases add dependencies (requests, scikit-learn,
-# sentence-transformers, joblib, rouge-score, numpy).
+# Phase 6 Stage-2 learned router (classifier/router_clf.joblib) runtime deps.
+# Deliberately scikit-learn ONLY -- NOT sentence-transformers/torch. The joblib
+# is a TF-IDF + logistic-regression model; loading it needs sklearn (which
+# pulls in scipy/numpy/joblib), ~50-60 MB and a sub-second import. torch would
+# add ~1-2 GB and a 2-5 s import, blowing the <2 s artifact-load and <60 s
+# cold-start budgets for a category head that does not beat the heuristic. See
+# docs/phase6-classifier.md and classifier/train_classifier.py for the full
+# image-budget rationale. Pinned to the training sklearn version so the pickle
+# loads without a version-skew warning.
+scikit-learn==1.8.0
