@@ -106,6 +106,17 @@ _SYSTEM_PROMPT = (
     "VERDICT: PASS|FAIL - <short reason>"
 )
 
+# Retry prompt for when the first response contains no parseable verdict
+# (observed with reasoning judge models that ramble past the format).
+_STRICT_SYSTEM_PROMPT = (
+    "You are a strict, fair grader. Decide whether the candidate answer is "
+    "correct with respect to the reference answer and the task. Do not "
+    "explain your reasoning. Respond with ONLY one line and nothing else:\n"
+    "VERDICT: PASS - <short reason>\n"
+    "or\n"
+    "VERDICT: FAIL - <short reason>"
+)
+
 
 def _build_user_prompt(task, reference, candidate):
     return (
@@ -126,13 +137,47 @@ def _parse_verdict(text):
     return verdict, reason[:200] or "(no reason given)"
 
 
-def judge(task, reference, candidate, model=None, max_tokens=64):
+def _call_judge(client, model, system_prompt, user_prompt, max_tokens):
+    """One judge API call -> response text, or None on API failure. Counts
+    tokens into judge_tokens_used. Falls back to the reasoning_content field
+    when content is empty (reasoning models on OpenAI-compatible APIs may put
+    their text there, especially when max_tokens truncates the answer)."""
+    global judge_tokens_used
+    try:
+        response = client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+            max_tokens=max_tokens,
+            temperature=0.0,
+        )
+        message = response.choices[0].message
+        text = message.content or getattr(message, "reasoning_content", "") or ""
+        usage = response.usage
+    except Exception as e:
+        logger.error("judge call failed (model=%s): %s", model, e)
+        return None
+
+    tokens = getattr(usage, "total_tokens", None) if usage is not None else None
+    if tokens:
+        judge_tokens_used += tokens
+    return text
+
+
+def judge(task, reference, candidate, model=None, max_tokens=512):
     """Grade one candidate answer. Returns (verdict, reason) where verdict is
     'PASS', 'FAIL', or 'SKIP' (judge unavailable / parse failure). Never
     raises. Accumulates judge tokens into the separate judge_tokens_used
-    counter."""
-    global judge_tokens_used
+    counter.
 
+    max_tokens defaults high (512): judge tokens are NOT scored, and reasoning
+    judge models (e.g. gpt-oss) spend tokens reasoning before the verdict
+    line -- the old 64-token cap truncated them into unparseable output and
+    left every code-gen answer ungraded (0% coverage in the first live sweep).
+    On an unparseable verdict the judge retries ONCE with a stricter
+    format-only prompt before giving up with SKIP."""
     if not judge_available():
         return "SKIP", "judge unavailable (missing creds/model)"
 
@@ -145,30 +190,25 @@ def judge(task, reference, candidate, model=None, max_tokens=64):
     if not model:
         return "SKIP", "no allowed model to judge with"
 
-    messages = [
-        {"role": "system", "content": _SYSTEM_PROMPT},
-        {"role": "user", "content": _build_user_prompt(task, reference, candidate)},
-    ]
-    try:
-        response = client.chat.completions.create(
-            model=model,
-            messages=messages,
-            max_tokens=max_tokens,
-            temperature=0.0,
-        )
-        text = response.choices[0].message.content or ""
-        usage = response.usage
-    except Exception as e:
-        logger.error("judge call failed (model=%s): %s", model, e)
-        return "SKIP", f"judge error: {e}"
+    user_prompt = _build_user_prompt(task, reference, candidate)
 
-    tokens = getattr(usage, "total_tokens", None) if usage is not None else None
-    if tokens:
-        judge_tokens_used += tokens
+    text = _call_judge(client, model, _SYSTEM_PROMPT, user_prompt, max_tokens)
+    if text is None:
+        return "SKIP", "judge error (API call failed)"
+
+    verdict, reason = _parse_verdict(text)
+    if verdict is not None:
+        return verdict, reason
+
+    logger.warning("unparseable judge verdict, retrying with strict prompt")
+    text = _call_judge(client, model, _STRICT_SYSTEM_PROMPT, user_prompt,
+                       max_tokens)
+    if text is None:
+        return "SKIP", "judge error (retry API call failed)"
 
     verdict, reason = _parse_verdict(text)
     if verdict is None:
-        return "SKIP", f"unparseable verdict: {reason}"
+        return "SKIP", f"unparseable verdict after retry: {reason}"
     return verdict, reason
 
 

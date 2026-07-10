@@ -9,9 +9,23 @@ on any sign the local answer is degenerate.
 
 Verifiable checks (cheap, local, no LLM call) are the primary signal, per
 the literature-backed guidance that raw LLM self-confidence is poorly
-calibrated. Difficulty is a weak secondary signal only -- project memory
-(see MEMORY.md) recorded the local 3B model solving a "hard"-labeled math
-question, so difficulty must never be the sole escalation trigger.
+calibrated. For those categories, difficulty is ignored entirely: a
+structurally valid answer is trusted even on "hard"-labeled prompts
+(project memory recorded the local 3B solving a "hard" math question).
+
+For the NO-CHECK categories (factual, summarization, code-debug, logic),
+the 2026-07-10 live sweep changed the policy: hard difficulty alone now
+escalates. The sweep measured the old hard-AND-hedge gate leaking a
+confident hallucination, while escalating all hard no-check tasks bought
++1.7% accuracy for ~858 tokens -- cheap insurance given that failing the
+accuracy gate is catastrophic (zero score) while extra tokens are only a
+marginal ranking penalty.
+
+The math check is no longer format-only: callers may pass a second,
+independently generated local answer (verify_answer) and the check fails
+when the two final numbers disagree -- a zero-scored-token dual-answer
+agreement verifier (local tokens are free). The first live sweep measured
+the format-only check leaking 2/20 wrong math answers.
 """
 
 import ast
@@ -44,9 +58,42 @@ def _has_hedge_language(answer):
     return bool(_HEDGE_RE.search(answer or ""))
 
 
-def _check_math(answer):
-    """Passes if the answer contains a parseable number anywhere."""
-    return bool(_NUMBER_RE.search(answer or ""))
+# Same tolerances as eval/metrics.py's numeric comparison.
+_NUM_REL_TOL = 1e-3
+_NUM_ABS_TOL = 1e-6
+
+
+def _final_number(text):
+    """The LAST number in the text (the per-category system prompt asks for
+    the final answer on its own line, so last = final), or None."""
+    matches = _NUMBER_RE.findall(text or "")
+    if not matches:
+        return None
+    try:
+        return float(matches[-1])
+    except ValueError:
+        return None
+
+
+def _num_close(a, b):
+    return abs(a - b) <= max(_NUM_ABS_TOL, _NUM_REL_TOL * max(abs(a), abs(b)))
+
+
+def _check_math(answer, verify_answer=None):
+    """Format check (a parseable number must be present) plus, when a second
+    independently generated answer is supplied, dual-answer agreement: the
+    final numbers of both answers must match. Disagreement -- or a verify
+    answer with no number at all -- fails the check (conservative: a failed
+    recompute is itself a failure signal). verify_answer=None preserves the
+    old format-only behavior for callers without a second answer."""
+    final = _final_number(answer)
+    if final is None:
+        return False
+    if verify_answer is not None:
+        verify_final = _final_number(verify_answer)
+        if verify_final is None or not _num_close(final, verify_final):
+            return False
+    return True
 
 
 def _check_ner(answer):
@@ -104,29 +151,39 @@ _VERIFIABLE_CHECKS = {
 }
 
 
-def should_escalate(category, difficulty, local_answer):
+def should_escalate(category, difficulty, local_answer, verify_answer=None):
     """Return True if the local answer should be replaced with a remote
     (Fireworks) answer.
+
+    verify_answer (optional): a second, independently generated LOCAL answer
+    for math tasks; when provided, the math check additionally requires the
+    two final numbers to agree. Zero scored-token cost (local tokens are
+    free). Ignored for every other category.
 
     Precedence:
     1. Degenerate local answer (empty/N/A) -> always escalate.
     2. Category has a verifiable check -> escalate iff it fails. Difficulty
-       is NOT consulted here: a structurally valid answer (e.g. a number
-       for math, a JSON list for NER) is trusted regardless of the
+       is NOT consulted here: a structurally valid answer (e.g. an agreeing
+       number for math, a JSON list for NER) is trusted regardless of the
        heuristic router's difficulty label.
     3. No verifiable check exists for this category (factual,
-       summarization, code-debug, logic) -> escalate only when difficulty
-       is "hard" AND the answer itself shows hedging/uncertainty language.
-       Difficulty alone is deliberately insufficient to trigger escalation.
+       summarization, code-debug, logic) -> escalate when difficulty is
+       "hard" OR the answer shows hedging/uncertainty language. (Live-sweep
+       tightening, 2026-07-10: the old hard-AND-hedge rule leaked a
+       confident hallucination; hard-alone escalation on no-check
+       categories measured +1.7% accuracy for ~858 tokens.)
     """
     if _looks_degenerate(local_answer):
         return True
+
+    if category == "math":
+        return not _check_math(local_answer, verify_answer)
 
     check = _VERIFIABLE_CHECKS.get(category)
     if check is not None:
         return not check(local_answer)
 
-    if difficulty == "hard" and _has_hedge_language(local_answer):
+    if difficulty == "hard" or _has_hedge_language(local_answer):
         return True
 
     return False

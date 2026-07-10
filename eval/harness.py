@@ -6,9 +6,10 @@ remote_chat) over the generated testset and reports:
   - the agent's scored Fireworks token total (the metric being minimized),
   - a threshold sweep over escalation policies so the accuracy-vs-tokens knee
     can be chosen,
-  - a "false-trust" gap analysis surfacing the known Phase 4 weaknesses (the
-    math check is format-only; factual/logic/summarization/code-debug have no
-    verifiable check), rather than hiding them.
+  - a "false-trust" gap analysis surfacing the gate's remaining weaknesses
+    (factual/logic/summarization/code-debug have no verifiable check; math is
+    covered by dual-answer agreement since 2026-07-10), rather than hiding
+    them.
 
 Two token streams are tracked SEPARATELY and never mixed:
   - agent scored tokens: src/remote_model.get_total_tokens_used() (reset per
@@ -103,15 +104,18 @@ def _p_all_local(rec):
 
 
 def _p_verifiable_only(rec):
-    # difficulty forced to "easy" disables the shipped gate's hard+hedge path,
-    # leaving only the degenerate + verifiable-check-failure triggers. Uses the
-    # ROUTED category, because that is the check the shipped agent applies.
-    return should_escalate(rec["routed_category"], "easy", rec["local_answer"])
+    # difficulty forced to "easy" disables the shipped gate's hard-difficulty
+    # path on no-check categories, leaving the degenerate + verifiable-check +
+    # hedge-language triggers. Uses the ROUTED category, because that is the
+    # check the shipped agent applies. verify_answer was computed once in
+    # run_pipeline so policy re-scoring stays deterministic (no live calls).
+    return should_escalate(rec["routed_category"], "easy", rec["local_answer"],
+                           rec.get("verify_answer"))
 
 
 def _p_shipped(rec):
     return should_escalate(rec["routed_category"], rec["difficulty"],
-                           rec["local_answer"])
+                           rec["local_answer"], rec.get("verify_answer"))
 
 
 def _p_shipped_plus_hard(rec):
@@ -134,12 +138,28 @@ POLICY_MAP = dict(POLICIES)
 
 # --- running the pipeline over the testset ------------------------------------
 
-def _load_testset(path, limit):
+def _load_testset(path, limit, categories=None):
     with open(path, "r", encoding="utf-8") as f:
         items = json.load(f)
+    if categories:
+        items = [it for it in items if it.get("category") in categories]
     if limit:
         items = items[:limit]
     return items
+
+
+def _parse_categories(spec):
+    """Parse a --categories spec ("code-gen,logic") into a validated set, or
+    None when no filter was given. Unknown names are dropped with a warning so
+    a typo shrinks the run visibly instead of silently running nothing."""
+    if not spec:
+        return None
+    wanted = {c.strip() for c in spec.split(",") if c.strip()}
+    unknown = wanted - set(CATEGORIES)
+    if unknown:
+        logger.warning("ignoring unknown categories: %s (valid: %s)",
+                       sorted(unknown), ", ".join(CATEGORIES))
+    return (wanted & set(CATEGORIES)) or None
 
 
 def run_pipeline(items, use_judge, need_remote_all, self_test=False):
@@ -172,6 +192,22 @@ def run_pipeline(items, use_judge, need_remote_all, self_test=False):
                 max_tokens=cat_obj.max_tokens, stop=cat_obj.stop,
             )
 
+        # Math dual-answer verification (mirrors src/main.py): one extra LOCAL
+        # call whose final number must agree with the primary answer's.
+        # Computed once here so score_policy can re-evaluate policies without
+        # live calls. self_test echoes the reference (always agrees).
+        verify_answer = None
+        if routed_category == "math":
+            if self_test:
+                verify_answer = reference
+            elif (local_answer or "").strip().lower() not in ("", "n/a", "na"):
+                verify_answer, _ = local_chat(
+                    cat_obj.system_prompt,
+                    "Recompute carefully step by step, then give the final "
+                    "numeric answer on its own line.\n\n" + it["prompt"],
+                    max_tokens=cat_obj.max_tokens, stop=cat_obj.stop,
+                )
+
         rec = {
             "task_id": it["task_id"],
             "true_category": true_category,
@@ -181,6 +217,7 @@ def run_pipeline(items, use_judge, need_remote_all, self_test=False):
             "prompt": it["prompt"],
             "reference": reference,
             "local_answer": local_answer,
+            "verify_answer": verify_answer,
             "remote_answer": None,
             "remote_tokens": 0,
         }
@@ -266,6 +303,39 @@ def score_policy(records, policy_fn):
     }
 
 
+def dump_labels(records, path):
+    """Persist per-task pass/fail labels for Phase 6's predicted-local-success
+    head (classifier/train_classifier.py --labels). Written atomically. These
+    are REAL labels from this run's local model + judge -- never fabricated;
+    ungradeable tasks (local_pass is None) are written through as null and the
+    trainer skips them. Producing a useful labels file therefore requires ONE
+    harness run with the judge available (i.e. live creds), which can be
+    captured from a sweep you are already paying for rather than a second run.
+    """
+    labels = [
+        {
+            "task_id": r["task_id"],
+            "category": r["true_category"],
+            "routed_category": r["routed_category"],
+            "difficulty": r["difficulty"],
+            "prompt": r["prompt"],
+            "local_answer": r["local_answer"],
+            "local_pass": r["local_pass"],
+            "local_via": r.get("local_via"),
+            "shipped_escalate": r["shipped_escalate"],
+            "remote_pass": r.get("remote_pass"),
+        }
+        for r in records
+    ]
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(labels, f, ensure_ascii=False, indent=2)
+    os.replace(tmp, path)
+    graded = sum(1 for r in records if r["local_pass"] is not None)
+    logger.info("wrote %d labels (%d graded, %d ungradeable) to %s",
+                len(labels), graded, len(labels) - graded, path)
+
+
 def gap_analysis(records):
     """Surface the known Phase 4 weaknesses: for the SHIPPED gate, count tasks
     whose local answer shipped (was NOT escalated) yet graded FAIL -- these are
@@ -281,9 +351,9 @@ def gap_analysis(records):
         )
         gradeable = sum(1 for r in recs if r["local_pass"] is not None)
         if cat == "math":
-            note = "check is FORMAT-ONLY (any number passes; wrong value slips)"
+            note = "dual-answer agreement check (format-only when no verify answer)"
         elif cat in _NO_CHECK:
-            note = "NO verifiable check (relies on hard+hedge only)"
+            note = "NO verifiable check (escalates on hard OR hedge)"
         else:
             note = "verifiable check present"
         rows.append((cat, false_trust, len(recs), gradeable, note))
@@ -375,12 +445,23 @@ def main():
     parser.add_argument("--testset", default=DEFAULT_TESTSET)
     parser.add_argument("--limit", type=int, default=None,
                         help="only run the first N tasks (smoke test)")
+    parser.add_argument("--categories", default=None, metavar="CAT1,CAT2",
+                        help="only run these categories (e.g. "
+                             "code-gen,code-debug,logic,math) -- targeted "
+                             "re-runs that skip re-spending judge credits on "
+                             "already-validated categories")
     parser.add_argument("--sweep", action="store_true",
                         help="run the full policy sweep (remote for every task)")
     parser.add_argument("--no-judge", action="store_true",
                         help="force metric-only grading (skip the LLM judge)")
     parser.add_argument("--self-test", action="store_true",
                         help="offline: stub local/remote answers = reference")
+    parser.add_argument("--dump-labels", default=None, metavar="PATH",
+                        help="write per-task pass/fail labels to PATH for "
+                             "Phase 6's success head (train_classifier.py "
+                             "--labels). Needs the judge (live creds) to be "
+                             "useful; capture it from a sweep you're already "
+                             "running rather than a second paid run.")
     args = parser.parse_args()
 
     if not os.path.exists(args.testset):
@@ -404,11 +485,23 @@ def main():
         logger.warning("ALLOWED_MODELS empty: remote escalation will no-op "
                        "(offline dry run) -- accuracy reflects local answers")
 
-    items = _load_testset(args.testset, args.limit)
+    items = _load_testset(args.testset, args.limit,
+                          categories=_parse_categories(args.categories))
     logger.info("loaded %d task(s) from %s", len(items), args.testset)
+    if not items:
+        logger.error("no tasks matched the filter; nothing to run")
+        sys.exit(1)
 
     records = run_pipeline(items, use_judge=use_judge,
                            need_remote_all=args.sweep, self_test=args.self_test)
+
+    if args.dump_labels:
+        dump_labels(records, args.dump_labels)
+        if not use_judge:
+            logger.warning("--dump-labels written WITHOUT the judge: judge-only "
+                           "categories (logic/code) are null and excluded by "
+                           "the success-head trainer. Re-run with live creds "
+                           "for full-coverage labels.")
 
     if args.sweep:
         policies_to_report = [name for name, _ in POLICIES]
