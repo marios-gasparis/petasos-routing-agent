@@ -1,2 +1,7 @@
-openai>=1.30
-gradio>=4.44
+streamlit>=1.38
+huggingface_hub>=0.24
+
+# Prebuilt CPU wheel index -- avoids compiling llama-cpp-python from source
+# on Streamlit Community Cloud (no build toolchain there by default).
+--extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+llama-cpp-python
